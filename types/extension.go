@@ -12,7 +12,7 @@ type Extension struct {
 
 	// a func IN the WASM plugin that matches this value that would be called by the extension point using the plugin
 	// engine's host function to call extension functions.
-	FuncName string `json:"funcName"`
+	Func string `json:"func"`
 
 	// This property can hold custom data for an extension point to use without having to call the extension func
 	// to have data returned. This is useful when an ExtnesionPoint want's to build up say.. a Menu system or a Help
@@ -22,4 +22,10 @@ type Extension struct {
 	// part of the register return []byte data. ExtensionPoint funcs would be called to process the metadata however
 	// necessary.
 	MetaData []byte `json:"metadata"`
+
+	// This property determines the trigger event that this extension is interested in being notified if it occurs.
+	// If the extension point this extension anchors to fires events, it will filter the extensions matched to it
+	// that also match the event the extension would respond to. This is useful for things like say, a mneu item click
+	// that would trigger the extension to do something.
+	Event string `json:"event"`
 }
