@@ -1,13 +1,17 @@
 package types
 
 type Extension struct {
+	// a unique identifier such as a name made up of the company, org, project and category separated by periods, or just
+	// a simple string.
+	Id string `json:"id"`
+
 	// the extension point Id that this extension provides functionality to/for.
 	ExtensionPoint string `json:"extensionPoint"`
 
 	// a meaningful description of this extension that could be displayed in a plugin store for example
 	Description string `json:"description"`
 
-	// a display or friendly name for this extension
+	// a display or friendly name for this extension, not to be confused with the Id.
 	Name string `json:"name"`
 
 	// a func IN the WASM plugin that matches this value that would be called by the extension point using the plugin
@@ -23,9 +27,23 @@ type Extension struct {
 	// necessary.
 	MetaData []byte `json:"metadata"`
 
-	// This property determines the trigger event that this extension is interested in being notified if it occurs.
-	// If the extension point this extension anchors to fires events, it will filter the extensions matched to it
-	// that also match the event the extension would respond to. This is useful for things like say, a mneu item click
-	// that would trigger the extension to do something.
-	Event string `json:"event"`
+	// This is a slice of dependencies this extension depends on. If provided, the extension, extension point or
+	// plugin in each dependency MUST resolve before the extension is usable (resolved)
+	Dependencies []Dependency `json:"dependencies"`
+}
+
+func CreateExtension(id, name, extensionPoint, description, funcName string, metadata []byte, dependencies []Dependency) *Extension {
+	if len(id) > 0 && len(name) > 0 && len(extensionPoint) > 0 && len(funcName) > 0 {
+		return &Extension{
+			Id:             id,
+			ExtensionPoint: extensionPoint,
+			Description:    description,
+			Name:           name,
+			Func:           funcName,
+			MetaData:       metadata,
+			Dependencies:   dependencies,
+		}
+	}
+
+	return nil
 }

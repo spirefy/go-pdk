@@ -10,7 +10,7 @@ func callExtension(d uint64) uint64
 func CallExtension(data []byte) {
 	// Call the host function
 
-	pdk.Log(pdk.LogDebug, "Calling extension yah")
+	pdk.Log(pdk.LogDebug, "Calling extension")
 	dta := pdk.AllocateBytes(data)
 
 	offs1 := callExtension(dta.Offset())

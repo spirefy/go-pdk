@@ -19,16 +19,19 @@ type ExtensionPoint struct {
 	Version string `json:"version"`
 
 	// This is an array of plugin Ids that must be available before this extension point can be used.
-	Dependencies []string `json:"dependencies"`
+	Dependencies []Dependency `json:"dependencies"`
+}
 
-	// If this extension point represents an event trigger this is the event that will trigger it. Any extensions
-	// matched to this extension point will be expected to support the event via an event handler function
-	Event string `json:"event"`
+func CreateExtensionPoint(id, name, version, description string, dependencies []Dependency) *ExtensionPoint {
+	if len(id) > 0 && len(name) > 0 {
+		return &ExtensionPoint{
+			Id:           id,
+			Description:  description,
+			Name:         name,
+			Version:      version,
+			Dependencies: dependencies,
+		}
+	}
 
-	// This is either a json schema as a string or a chunk of json representing the full payload structure that this
-	// extension point would send to any resolved extensions. This is mostly for display purposes or informational
-	// purposes as extension point documentation should include info on the particular payload dynamics if any are
-	// present with details on the various properties, etc. This particular property would be useful in say, a plugin
-	// store that shows the structure of the extension point and displays this schema for informational purpose.
-	Schema string `json:"schema"`
+	return nil
 }
