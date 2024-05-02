@@ -24,4 +24,6 @@ type Plugin struct {
 	// A slice of extensions that attach to other plugin extension points.. contributions this plugin is adding to those
 	// extension points.
 	Extensions []Extension `json:"extensions" yaml:"extensions"`
+
+	LoadOnStart bool `json:"loadOnStart" yaml:"loadOnStart"`
 }
