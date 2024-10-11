@@ -1,1 +1,3 @@
-# go-pdk
+### Go Plugin Engine Developer SDK (Plugin Developer Kit)
+
+This library is meant to allow Go developers to make use of the Go implementation of the Spirefy Plugin Engine. It provides various structs the Go engine uses as well as a series of host funcs that the Extism library the engine depends on uses to allow the engine to call functions from one plugin to another plugin's exported functions via WASM/Extism. 
